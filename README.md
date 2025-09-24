@@ -1,0 +1,11 @@
+# DBM-Frostmourne (3.3.5a)
+
+Deadly Boss Mods that aims to implement accurate timers for the Frostmourne servers.
+
+## NO LONGER MAINTAINED
+This DBM is no longer actively maintained. If you wanna improve it further, feel free to fork the repo!
+
+## Credit
+Core addon backport from retail by Barsoomx: (https://github.com/Barsoomx/DBM-wowcircle)  
+Forked from Zidra's excellent continuation of the addon: (https://github.com/Zidras/DBM-Warmane)  
+Tons of T7 fixes provided by Oomshroom  
