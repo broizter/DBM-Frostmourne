@@ -5,7 +5,8 @@ local GetPlayerMapPosition, SetMapToCurrentZone = GetPlayerMapPosition, SetMapTo
 
 mod:SetRevision(("$Revision: 7007 $"):sub(12, -3))
 mod:SetMinSyncRevision(7007)
-mod:SetCreatureID(34797)
+mod:SetCreatureID(34796, 35144, 34799, 34797)
+mod:SetEncounterID(629)
 mod:SetMinCombatTime(30)
 mod:SetUsedIcons(1, 2, 3, 4, 5, 6, 7, 8)
 
@@ -154,8 +155,8 @@ function mod:GromokStartTimers()
 	end
 	timerNextStompCD:Start(5)
 	timerNextImpale:Start(8.7)
-	specWarnSilence:Schedule(2) 
-	specWarnSilence:ScheduleVoice(2, "silencesoon")	
+	specWarnSilence:Schedule(2)
+	specWarnSilence:ScheduleVoice(2, "silencesoon")
 end
 
 function mod:WormsEmerge()
@@ -163,10 +164,10 @@ function mod:WormsEmerge()
 		timerSubmergeCD:Start()
 		if DreadscaleActive then	-- Dreadscale active & Acidmaw stationary
 			timerSweepCD:Start(24.8)
-			timerParalyticSpray:Start(20)			
+			timerParalyticSpray:Start(20)
 		else 						-- Dreadscale stationary & Acidmaw active
 			timerSlimePoolCD:Start(14)
-			timerParalyticBite:Start(20)			
+			timerParalyticBite:Start(20)
 			timerAcidicSpewCD:Start(15)
 		end
 	end
@@ -180,7 +181,7 @@ function mod:WormsEmerge()
 			timerSweepCD:Start(17.1)
 			timerBurningSpray:Start(15)
 		end
-	end	
+	end
 end
 
 function mod:WormsSubmerge()
@@ -263,7 +264,7 @@ function mod:SPELL_AURA_APPLIED_DOSE(args)
 	if args:IsSpellID(67477, 66331, 67478, 67479) then		-- Impale
 		timerNextImpale:Start()
 		warnImpaleOn:Show(args.destName, args.amount)
-		if (args.amount >= 5 and not self:IsDifficulty("heroic10", "heroic25") ) or ( args.amount >= 4 and self:IsDifficulty("heroic10", "heroic25") ) then 
+		if (args.amount >= 5 and not self:IsDifficulty("heroic10", "heroic25") ) or ( args.amount >= 4 and self:IsDifficulty("heroic10", "heroic25") ) then
 			if args:IsPlayer() then
 				specWarnImpale5:Show(args.amount)
 				specWarnImpale5:Play("stackhigh")

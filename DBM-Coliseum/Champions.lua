@@ -2,7 +2,8 @@ local mod	= DBM:NewMod("Champions", "DBM-Coliseum")
 local L		= mod:GetLocalizedStrings()
 
 mod:SetRevision(("$Revision: 3726 $"):sub(12, -3))
-mod:SetCreatureID(34458, 34451, 34459, 34448, 34449, 34445, 34456, 34447, 34441, 34454, 34444, 34455, 34450, 34453, 34461, 34460, 34469, 34467, 34468, 34471, 34465, 34466, 34473, 34472, 34470, 34463, 34474, 34475, 110000, 110004, 110010)
+mod:SetCreatureID(34458, 34451, 34459, 34448, 34449, 34445, 34456, 34447, 34441, 34454, 34444, 34455, 34450, 34453, 34461, 34460, 34469, 34467, 34468, 34471, 34465, 34466, 34473, 34472, 34470, 34463, 34474, 34475)
+mod:SetEncounterID(637)
 
 mod:RegisterCombat("combat")
 mod:RegisterKill("yell", L.YellKill)
@@ -243,14 +244,14 @@ function mod:SPELL_CAST_SUCCESS(args)
 	-- Demon hunter
 	elseif args:IsSpellID(71264, 71265) then -- Swarming Shadows
 		timerFlame:Start(args.destName)
-		timerFlameCD:Start()		
+		timerFlameCD:Start()
 		if args:IsPlayer() then
 			yellFire:Yell()
 			specWarnFlame:Show()
 			specWarnFlame:Play("firerun")
 		else
 			warnFlame:Show(args.destName)
-		end	
+		end
 	-- Hunter
 	elseif args.spellId == 66207 then								-- Wing Clip
 		warnWingClip:Show(args.destName)

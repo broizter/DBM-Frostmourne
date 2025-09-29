@@ -4,6 +4,7 @@ local L		= mod:GetLocalizedStrings()
 mod:SetRevision(("$Revision: 7007 $"):sub(12, -3))
 mod:SetMinSyncRevision(7007)
 mod:SetCreatureID(34780)
+mod:SetEncounterID(633)
 mod:SetMinCombatTime(30)
 mod:SetUsedIcons(7, 8)
 
@@ -61,7 +62,7 @@ function mod:OnCombatStart(delay)
 		DBM.BossHealth:Show(L.name)
 		DBM.BossHealth:AddBoss(34780, L.name)
 	end
-	warnPortalSoon:Schedule(15-delay)	
+	warnPortalSoon:Schedule(15-delay)
 	timerPortalCD:Start(20-delay)		-- Nether Portal 20 sec. after pull, next every 120 sec.
 	warnVolcanoSoon:Schedule(75-delay)	-- 5 sec. longer (hack-fix for delay caused by Nether Power)
 	timerVolcanoCD:Start(80-delay)		-- Volcano 80 seconds after pull, next every 120 sec.
@@ -104,11 +105,11 @@ function mod:SPELL_AURA_APPLIED(args)
 	elseif args:IsSpellID(66197, 68123, 68124, 68125) then	-- Legion Flame ids 66199, 68126, 68127, 68128 (second debuff) do the actual damage. First 2 seconds are trigger debuff only.
 		local targetname = args.destName
 		timerFlame:Start(args.destName)
-		timerFlameCD:Start()		
+		timerFlameCD:Start()
 		if args:IsPlayer() then
 			specWarnFlame:Show()
 			specWarnFlame:Play("firerun")
-		end		
+		end
 		if self.Options.LegionFlameIcon then
 			self:SetIcon(args.destName, 7, 8)
 		end
