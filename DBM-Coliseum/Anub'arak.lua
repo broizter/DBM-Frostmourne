@@ -7,6 +7,7 @@ local GetSpellInfo = GetSpellInfo
 mod:SetRevision(("$Revision: 7007 $"):sub(12, -3))
 mod:SetMinSyncRevision(7007)
 mod:SetCreatureID(34564)
+mod:SetEncounterID(645)
 mod:SetUsedIcons(3, 4, 5, 6, 7, 8)
 
 mod:RegisterCombat("combat")
