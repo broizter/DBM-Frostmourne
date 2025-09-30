@@ -6,7 +6,7 @@ ml:SetOptionLocalization({SpecWarnRaidCD="Show warning and timer when $spell:642
 ml:SetWarningLocalization({SpecWarnRaidCD="|TInterface\\Icons\\spell_holy_powerwordbarrier:12:12|t Dsac/AM soon |TInterface\\Icons\\Spell_Holy_AuraMastery:12:12|t"})
 ml:SetTimerLocalization({TimerWarnRaidCD="Dsac/AM"})
 
-mod:SetRevision("20221016192235")
+mod:SetRevision("20250929220131")
 mod:SetCreatureID(15989)
 mod:SetMinSyncRevision(20220904000000)
 
@@ -119,7 +119,7 @@ function mod:GroundPhaseStart()
 			self:Schedule(80-28-1, DBM.RangeCheck.Show, DBM.RangeCheck, 12)
 		end
 	end
-	
+
 	self:UnregisterShortTermEvents() -- just in case something went wrong with target detection
 end
 
@@ -142,7 +142,7 @@ function mod:SPELL_AURA_APPLIED(args)
 	elseif args:IsSpellID(28547, 55699) and args:IsPlayer() and self:AntiSpam(1) then
 		specWarnBlizzard:Show(args.spellName)
 		specWarnBlizzard:Play("watchfeet")
-	end	
+	end
 end
 
 function mod:SPELL_CAST_SUCCESS(args)

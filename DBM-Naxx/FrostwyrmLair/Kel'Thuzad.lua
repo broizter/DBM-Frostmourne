@@ -7,6 +7,7 @@ local UnitClass = UnitClass
 
 mod:SetRevision("20221030130154")
 mod:SetCreatureID(15990)
+mod:SetEncounterID(1114)
 mod:SetModelID("creature/lich/lich.m2")
 mod:SetMinCombatTime(60)
 mod:SetUsedIcons(1, 2, 3, 4, 5, 6, 7, 8)

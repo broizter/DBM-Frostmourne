@@ -4,10 +4,10 @@ local L		= mod:GetLocalizedStrings()
 local CancelUnitBuff = CancelUnitBuff
 local GetSpellInfo = GetSpellInfo
 
-mod:SetRevision(("$Revision: 7007 $"):sub(12, -3))
+mod:SetRevision("20250929220131")
 mod:SetMinSyncRevision(7007)
 mod:SetCreatureID(34564)
-mod:SetEncounterID(645)
+mod:SetEncounterID(--[[not mod:IsPostCata() and ]]645--[[ or 1085]])
 mod:SetUsedIcons(3, 4, 5, 6, 7, 8)
 
 mod:RegisterCombat("combat")

@@ -1,10 +1,9 @@
 local mod	= DBM:NewMod("Noth", "DBM-Naxx", 3)
 local L		= mod:GetLocalizedStrings()
 
-local GetSpellInfo = GetSpellInfo
-
-mod:SetRevision("20221027184343")
+mod:SetRevision("20250929220131")
 mod:SetCreatureID(15954)
+mod:SetEncounterID(1117)
 
 mod:RegisterCombat("combat_yell", L.Pull)
 
@@ -105,7 +104,7 @@ function mod:OnSync(msg)
 		warnTeleportSoon:Schedule(70)
 	elseif msg == "Adds" then -- Boss Grounded
 		specWarnAdds:Show()
-		specWarnAdds:Play("killmob")		
+		specWarnAdds:Play("killmob")
 		timerAddsCD:Start()
 	elseif msg == "AddsTwo" then -- Boss away
 		specWarnAdds:Show()
