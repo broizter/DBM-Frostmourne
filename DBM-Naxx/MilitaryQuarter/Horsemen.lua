@@ -5,9 +5,9 @@ local ml = DBM:GetModLocalization("Horsemen")
 ml:SetOptionLocalization({SpecialWarningMarkOnPlayerTotal="Show warning when you have 4 TOTAL marks on you"})
 ml:SetWarningLocalization({SpecialWarningMarkOnPlayerTotal="|TInterface\\Icons\\ability_rogue_feigndeath:12:12|t %d MARKS TOTAL |TInterface\\Icons\\ability_rogue_feigndeath:12:12|t"})
 
-
-mod:SetRevision("20221016185606")
+mod:SetRevision("20250929220131")
 mod:SetCreatureID(16063, 16064, 16065, 30549)
+mod:SetEncounterID(1121)
 
 mod:RegisterCombat("combat", 16063, 16064, 16065, 30549)
 
@@ -141,7 +141,7 @@ function mod:SPELL_AURA_APPLIED(args)
 			specWarnMarkOnPlayer:Show(args.spellName, amount)
 			specWarnMarkOnPlayer:Play("stackhigh")
 		end
-		
+
 		if (amount < minAmount or not self.Options.specWarnMarkOnPlayer) and self.Options.SpecialWarningMarkOnPlayerTotal and self:IsDifficulty("normal25") then -- Whitemane 100 raidwide stack buff
 			local total = 0
 			for i=1,4 do
@@ -150,7 +150,7 @@ function mod:SPELL_AURA_APPLIED(args)
 					total = total + (stacks ~= 0 and stacks or 1)
 				end
 			end
-			
+
 			if total >= 4 then
 				specWarnMarkOnPlayerTotal:Show(total)
 				specWarnMarkOnPlayerTotal:Play("stackhigh")

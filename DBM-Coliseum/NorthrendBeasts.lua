@@ -3,10 +3,10 @@ local L		= mod:GetLocalizedStrings()
 
 local GetPlayerMapPosition, SetMapToCurrentZone = GetPlayerMapPosition, SetMapToCurrentZone
 
-mod:SetRevision(("$Revision: 7007 $"):sub(12, -3))
+mod:SetRevision("20250929220131")
 mod:SetMinSyncRevision(7007)
 mod:SetCreatureID(34796, 35144, 34799, 34797)
-mod:SetEncounterID(629)
+mod:SetEncounterID(--[[not mod:IsPostCata() and ]]629--[[ or 1088]])--Buggy, never enable this
 mod:SetMinCombatTime(30)
 mod:SetUsedIcons(1, 2, 3, 4, 5, 6, 7, 8)
 

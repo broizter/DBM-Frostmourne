@@ -1,8 +1,9 @@
 local mod	= DBM:NewMod("Thorim", "DBM-Ulduar")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 4177 $"):sub(12, -3))
+mod:SetRevision("20250929220131")
 mod:SetCreatureID(32865)
+mod:SetEncounterID(752, 1141)
 mod:SetUsedIcons(7)
 
 mod:RegisterCombat("yell", L.YellPhase1)
