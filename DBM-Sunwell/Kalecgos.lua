@@ -6,7 +6,7 @@ local BossHealth = DBM.BossHealth
 
 mod:SetRevision("20250929220131")
 mod:SetCreatureID(24850)
-mod:SetEncounterID(724, 2488)
+mod:SetEncounterID(724)
 
 mod:RegisterCombat("combat")
 
