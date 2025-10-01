@@ -8,6 +8,7 @@ ml:SetTimerLocalization({TimerWarnRaidCD="Dsac/AM"})
 
 mod:SetRevision("20250929220131")
 mod:SetCreatureID(15989)
+mod:SetEncounterID(1119)
 mod:SetMinSyncRevision(20220904000000)
 
 mod:RegisterCombat("combat")
