@@ -2,8 +2,8 @@
 
 Deadly Boss Mods that aims to implement accurate timers for the Frostmourne servers.
 
-## NO LONGER MAINTAINED
-This DBM is no longer actively maintained. If you wanna improve it further, feel free to fork the repo!
+## ⚠️ NO LONGER MAINTAINED ⚠️
+This DBM is no longer actively maintained. If you wanna improve it further, feel free to submit a pull request or fork the repository!
 
 ## Credit
 Core addon backport from retail by Barsoomx: (https://github.com/Barsoomx/DBM-wowcircle)  
