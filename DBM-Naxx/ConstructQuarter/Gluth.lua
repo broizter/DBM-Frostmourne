@@ -26,13 +26,8 @@ local enrageTimer		= mod:NewBerserkTimer(360)
 function mod:OnCombatStart(delay)
 	enrageTimer:Start(360 - delay)
 	timerEnrageCD:Start(30 - delay)
-	if self:IsDifficulty("normal25") then
-		timerDecimate:Start(90 - delay)
-		warnDecimateSoon:Schedule(80 - delay)
-	else
-		timerDecimate:Start(105 - delay)
-		warnDecimateSoon:Schedule(95 - delay)
-	end
+	timerDecimate:Start(90 - delay)
+	warnDecimateSoon:Schedule(80 - delay)
 end
 
 function mod:SPELL_AURA_APPLIED(args)
@@ -61,14 +56,8 @@ end
 
 function mod:SPELL_CAST_SUCCESS(args)
 	if args.spellId == 28375 and self:AntiSpam(20) then
-		if self:IsDifficulty("normal25") then
-			warnDecimateNow:Show()
-			timerDecimate:Start()
-			warnDecimateSoon:Schedule(80)
-		else
-			warnDecimateNow:Show()
-			timerDecimate:Start(105)
-			warnDecimateSoon:Schedule(95)
-		end
+		warnDecimateNow:Show()
+		timerDecimate:Start()
+		warnDecimateSoon:Schedule(80)
 	end
 end
