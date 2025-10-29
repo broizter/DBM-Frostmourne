@@ -62,7 +62,7 @@ function mod:SPELL_AURA_REMOVED(args)
 	if args:IsSpellID(28785, 54021)
 	and args.auraType == "BUFF" then
 		warningLocustFaded:Show()
-		timerLocustIn:Start(71)
+		timerLocustIn:Start(67)
 		warningLocustSoon:Schedule(57)
 	end
 end
