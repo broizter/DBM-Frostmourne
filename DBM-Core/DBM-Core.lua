@@ -82,7 +82,7 @@ local function currentFullDate()
 end
 
 DBM = {
-	Revision = parseCurseDate("20251030185225"),
+	Revision = parseCurseDate("20251030200720"),
 	DisplayVersion = "11.6.0", -- the string that is shown as version
 	ReleaseRevision = releaseDate(2025, 09, 25) -- the date of the latest stable version that is available, optionally pass hours, minutes, and seconds for multiple releases in one day
 }
@@ -11449,6 +11449,10 @@ function bossModPrototype:SetCreatureID(...)
 		local cId = ...
 		bossIds[cId] = true
 		self.numBoss = 1
+		if self.combatInfo then
+			--Called mid combat, update combatinfo mob for boss health and win detection
+			self.combatInfo.mob = self.creatureId
+		end
 	end
 end
 
