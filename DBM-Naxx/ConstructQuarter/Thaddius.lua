@@ -2,7 +2,7 @@
 local mod	= DBM:NewMod("Thaddius", "DBM-Naxx", 2)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20221008164846")
+mod:SetRevision("20251103221602")
 mod:SetCreatureID(15928)
 
 mod:RegisterCombat("combat_yell", L.Yell)
@@ -64,13 +64,8 @@ do
 	function mod:SPELL_CAST_START(args)
 		if args.spellId == 28089 then -- Polarity Shift
 			self:SetStage(2)
-			if self:IsDifficulty("normal25") then
-				timerNextShift:Start()
-				warnShiftSoon:Schedule(15)
-			else
-				timerNextShift:Start(30)
-				warnShiftSoon:Schedule(25)
-			end
+			timerNextShift:Start()
+			warnShiftSoon:Schedule(15)
 			timerShiftCast:Start()
 			warnShiftCasting:Show()
 			lastShift = GetTime()
