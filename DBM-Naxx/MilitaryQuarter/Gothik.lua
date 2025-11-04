@@ -1,13 +1,14 @@
 local mod	= DBM:NewMod("Gothik", "DBM-Naxx", 4)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20220629223621")
+mod:SetRevision("20251104110225")
 mod:SetCreatureID(16060)
 
 mod:RegisterCombat("combat")
 
 mod:RegisterEventsInCombat(
-	"UNIT_DIED"
+	"UNIT_DIED",
+	"UNIT_HEALTH_UNFILTERED"
 )
 
 --TODO, sync infoframe from classic era version?
@@ -17,12 +18,14 @@ local warnWaveSoon		= mod:NewAnnounce("WarningWaveSoon", 2)
 local warnRiderDown		= mod:NewAnnounce("WarningRiderDown", 4)
 local warnKnightDown	= mod:NewAnnounce("WarningKnightDown", 2)
 local warnPhase2		= mod:NewPhaseAnnounce(2, 3)
+local warnLowHP			= mod:NewAnnounce("WarnGothikLow", 2)
 
 local timerPhase2		= mod:NewTimer(270, "TimerPhase2", 27082, nil, nil, 6)
 local timerWave			= mod:NewTimer(20, "TimerWave", 5502, nil, nil, 1)
 local timerGate			= mod:NewTimer(150, "Gate Opens", 9484)
 local timerTeleport		= mod:NewTimer(25, "TimerTeleport", 31569)
 
+local warned_lowhp = false
 mod.vb.wave = 0
 local wavesNormal = {
 	{2, L.Trainee, timer = 20},
@@ -133,5 +136,13 @@ function mod:UNIT_DIED(args)
 		elseif cid == 16125 then -- Unrelenting Deathknight
 			warnKnightDown:Show()
 		end
+	end
+end
+
+function mod:UNIT_HEALTH_UNFILTERED(uId)
+	if uId == "boss1" and not warned_lowhp and self:GetUnitCreatureId(uId) == 16060 and UnitHealth(uId) / UnitHealthMax(uId) < 0.3 then
+		warned_lowhp = true
+		warnLowHP:Show()
+		timerTeleport:Cancel()
 	end
 end
