@@ -5,7 +5,7 @@ local ml = DBM:GetModLocalization("Grobbulus")
 ml:SetOptionLocalization({SpecWarnManySlimes="Show special warning when 3 or more Fallout Slimes are alive"})
 ml:SetWarningLocalization({SpecWarnManySlimes="|TInterface\\Icons\\spell_nature_abolishmagic:12:12|t %d Slimes! %s |TInterface\\Icons\\spell_nature_abolishmagic:12:12|t"})
 
-mod:SetRevision("20250929220131")
+mod:SetRevision("20251118195633")
 mod:SetCreatureID(15931)
 mod:SetEncounterID(1111)
 mod:SetUsedIcons(1, 2, 3, 4)
@@ -157,13 +157,7 @@ end
 function mod:OnSync(msg)
 	if msg == "Spray" then
 		warnSlimeSprayNow:Show()
-
-		if self:IsDifficulty("normal25") then
-			warnSlimeSpraySoon:Schedule(10)
-			timerSlimeSprayCD:Start(15)
-		else
-			warnSlimeSpraySoon:Schedule(15)
-			timerSlimeSprayCD:Start(20)
-		end
+		warnSlimeSpraySoon:Schedule(10)
+		timerSlimeSprayCD:Start(15)
 	end
 end
