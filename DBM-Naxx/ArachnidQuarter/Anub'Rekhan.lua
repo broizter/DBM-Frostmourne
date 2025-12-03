@@ -49,11 +49,7 @@ function mod:SPELL_CAST_START(args)
 		specialWarningLocust:Show()
 		specialWarningLocust:Play("aesoon")
 		timerLocustIn:Stop()
-		if self:IsDifficulty("normal25") then
-			timerLocustFade:Start(23)
-		else
-			timerLocustFade:Start(19)
-		end
+		timerLocustFade:Start(23)
 	end
 end
 
