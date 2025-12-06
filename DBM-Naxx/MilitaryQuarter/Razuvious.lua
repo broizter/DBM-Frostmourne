@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Razuvious", "DBM-Naxx", 4)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20250929220131")
+mod:SetRevision("20251206163020")
 mod:SetCreatureID(16061)
 mod:SetEncounterID(1113)
 
@@ -23,7 +23,7 @@ local timerShieldWall	= mod:NewBuffActiveTimer(20, 29061, nil, nil, nil, 5, nil,
 local timerMindControl	= mod:NewBuffActiveTimer(60, 605, nil, nil, nil, 6)
 
 function mod:OnCombatStart(delay)
-	if self:IsDifficulty("normal25") then
+	if self:IsDifficulty("normal25", "heroic25") then
 		timerShout:Start(15 - delay)
 		warnShoutSoon:Schedule(10 - delay)
 	else
@@ -36,7 +36,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 	local spellId = args.spellId
 	if args:IsSpellID(55543, 29107) then  -- Disrupting Shout
 		warnShoutNow:Show()
-		if self:IsDifficulty("normal25") then
+		if self:IsDifficulty("normal25", "heroic25") then
 			timerShout:Start()
 			warnShoutSoon:Schedule(10)
 		else
