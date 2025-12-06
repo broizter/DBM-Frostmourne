@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Loatheb", "DBM-Naxx", 3)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20250929220131")
+mod:SetRevision("20251206163232")
 mod:SetCreatureID(16011)
 mod:SetEncounterID(1115)
 
@@ -36,7 +36,7 @@ mod.vb.sporeCounter = 0
 function mod:OnCombatStart(delay)
 	self.vb.doomCounter = 0
 	self.vb.sporeCounter = 0
-	if self:IsDifficulty("normal25") then
+	if self:IsDifficulty("normal25", "heroic25") then
 		self.vb.sporeTimer = 15
 		timerDoom:Start(20 - delay, 1)
 	else
@@ -61,7 +61,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 	if args:IsSpellID(29204, 55052) then  -- Inevitable Doom
 		self.vb.doomCounter = self.vb.doomCounter + 1
 		warnDoomNow:Show(self.vb.doomCounter)
-		if self:IsDifficulty("normal25") then
+		if self:IsDifficulty("normal25", "heroic25") then
 			timerDoom:Start(20, self.vb.doomCounter + 1)
 		else
 			timerDoom:Start(30, self.vb.doomCounter + 1)
