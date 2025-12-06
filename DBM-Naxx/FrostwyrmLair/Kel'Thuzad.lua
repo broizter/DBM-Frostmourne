@@ -5,7 +5,7 @@ local select, tContains = select, tContains
 local PickupInventoryItem, PutItemInBackpack, UseEquipmentSet, CancelUnitBuff = PickupInventoryItem, PutItemInBackpack, UseEquipmentSet, CancelUnitBuff
 local UnitClass = UnitClass
 
-mod:SetRevision("20221030130154")
+mod:SetRevision("20251206162623")
 mod:SetCreatureID(15990)
 mod:SetEncounterID(1114)
 mod:SetModelID("creature/lich/lich.m2")
@@ -237,7 +237,7 @@ local function StartPhase2(self)
 		timerFissureCD:Start(25)
 		timerManaBomb:Start(20)
 		timerFrostBlast:Start(45)
-		if self:IsDifficulty("normal25") then
+		if self:IsDifficulty("normal25", "heroic25") then
 			timerMCCD:Start(50)
 			warnMindControlSoon:Schedule(45)
 			if self.Options.EqUneqWeaponsKT and self:IsDps() then
