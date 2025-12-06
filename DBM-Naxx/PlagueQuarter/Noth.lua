@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Noth", "DBM-Naxx", 3)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20250929220131")
+mod:SetRevision("20251206144129")
 mod:SetCreatureID(15954)
 mod:SetEncounterID(1117)
 
@@ -37,7 +37,7 @@ local timerBlink		= mod:NewNextTimer(30, 29208)
 function mod:OnCombatStart(delay)
 	timerAddsCD:Start(-delay)
 	timerCurseCD:Start(15-delay)
-	if self:IsDifficulty("normal25") then
+	if self:IsDifficulty("normal25", "heroic25") then
 		timerBlink:Start(26-delay)
 		warnBlinkSoon:Schedule(23-delay)
 	end
@@ -57,7 +57,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 end
 
 function mod:SPELL_AURA_APPLIED(args)
-	if self:IsDifficulty("normal25") and args:IsSpellID(29208, 29209, 29210, 29211) then -- Blink
+	if self:IsDifficulty("normal25", "heroic25") and args:IsSpellID(29208, 29209, 29210, 29211) then -- Blink
 		warnBlink:Show()
 		timerBlink:Start()
 		warnBlinkSoon:Schedule(27)
@@ -96,7 +96,7 @@ function mod:OnSync(msg)
 		warnTeleportNow:Show()
 		timerAddsCD:Start()
 		timerCurseCD:Start(15)
-		if self:IsDifficulty("normal25") then
+		if self:IsDifficulty("normal25", "heroic25") then
 			timerBlink:Start(26)
 			warnBlinkSoon:Schedule(23)
 		end
