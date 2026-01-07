@@ -55,7 +55,7 @@ local timerNextFlameSuppressant	= mod:NewNextTimer(75, 64570, nil, nil, nil, 3)
 local timerNextFlameSuppressantP2	= mod:NewNextTimer(10, 65192, nil, nil, nil, 3)
 local timerNextFlames			= mod:NewNextTimer(30, 64566)
 local timerNextFrostBomb		= mod:NewNextTimer(30, 64623, nil, nil, nil, 3, nil, DBM_CORE_L.HEROIC_ICON)
-local timerBombExplosion		= mod:NewCastTimer(15, 65333, nil, nil, nil, 3)
+local timerBombExplosion		= mod:NewCastTimer(13.1, 65333, nil, nil, nil, 3)
 local timerBombBotSpawn			= mod:NewCDTimer(15, 63811)
 local timerSelfRepair			= mod:NewCastSourceTimer(15, 64383, nil, nil, nil, 7, nil, DBM_COMMON_L.IMPORTANT_ICON)
 
