@@ -59,7 +59,7 @@ local specWarnRuneofShields		= mod:NewSpecialWarningDispel(62274, "MagicDispelle
 local timerRuneofShields		= mod:NewBuffActiveTimer(15, 62274, nil, nil, nil, 5, nil, DBM_COMMON_L.MAGIC_ICON)
 local timerRuneofDeath			= mod:NewCDTimer(30, 63490, nil, nil, nil, 3)
 local timerRuneofPowerCast		= mod:NewCastTimer(1.5, 61973, nil, nil, nil, 5, nil, DBM_COMMON_L.TANK_ICON)  -- One log review (2022/07/05) - 60.0
-local timerRuneofPowerCD		= mod:NewCDTimer(60, 61973, nil, nil, nil, 5, nil, DBM_COMMON_L.TANK_ICON)  -- One log review (2022/07/05) - 60.0
+local timerRuneofPowerCD		= mod:NewCDTimer(30, 61973, nil, nil, nil, 5, nil, DBM_COMMON_L.TANK_ICON)  -- One log review (2022/07/05) - 60.0
 local timerRuneofSummoning		= mod:NewCDTimer(30, 62273, nil, nil, nil, 1)
 
 -- Steelbreaker
@@ -95,12 +95,12 @@ end
 
 local function RuneCD(self)	-- Workaround since no event is generated on cast
 	timerRuneofPowerCD:Start()
-	self:Schedule(60, RuneCD, self)
+	self:Schedule(30, RuneCD, self)
 end
 
 function mod:OnCombatStart(delay)
 	enrageTimer:Start(-delay)
-	timerRuneofPowerCD:Start(30-delay) -- One log review (2022/07/05)
+	timerRuneofPowerCD:Start(-delay) -- One log review (2022/07/05)
 	timerOverloadCD:Start(40)
 	table.wipe(disruptTargets)
 	self.vb.disruptIcon = 7
