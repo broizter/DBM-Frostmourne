@@ -37,6 +37,7 @@ mod:AddTimerLine(L.name)
 local warnCrunchArmor			= mod:NewStackAnnounce(64002, 2, nil, "Tank|Healer")
 
 local specWarnCrunchArmor2		= mod:NewSpecialWarningStack(64002, nil, 2, nil, 2, 1, 6)
+local specWarnCrunchArmorOther          = mod:NewSpecialWarningTaunt(64002, nil, nil, nil, 1, 2)
 local specWarnEyebeam			= mod:NewSpecialWarningRun(63346, nil, nil, nil, 4, 2)
 local yellBeam					= mod:NewYell(63346)
 
@@ -110,7 +111,8 @@ function mod:SPELL_AURA_APPLIED(args)
 				specWarnCrunchArmor2:Show(amount)
 				specWarnCrunchArmor2:Play("stackhigh")
 			else
-				warnCrunchArmor:Show(args.destName, amount)
+                                specWarnCrunchArmorOther:Show(args.destName)
+	                        specWarnCrunchArmorOther:Play("tauntboss")
 			end
 		else
 			warnCrunchArmor:Show(args.destName, amount)
