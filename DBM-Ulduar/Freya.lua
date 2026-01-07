@@ -88,7 +88,11 @@ function mod:OnCombatStart(delay)
 	self.vb.iconId = 6
 	self.vb.waves = 0
 	self:SetStage(1)
-	timerEnrage:Start(-delay)
+	if self:IsDifficulty("normal10", "normal25") then
+		timerEnrage:Start(-delay)
+	else
+		timerEnrage:Start(480-delay)
+	end
 	table.wipe(adds)
 --	timerAlliesOfNature:Start(10-delay)
 	timerLifebinderCD:Start(30-delay) -- ~15s variance (could be more, insufficient data). (25 man HM log 2022/07/17) - 26.1, 39.7

@@ -19,7 +19,7 @@ mod:RegisterEventsInCombat(
 )
 
 -- General
-local enrageTimer					= mod:NewBerserkTimer(600)
+local enrageTimer					= mod:NewBerserkTimer(720)
 
 -- Stage One
 mod:AddTimerLine(DBM_CORE_L.SCENARIO_STAGE:format(1))
@@ -71,7 +71,11 @@ end
 function mod:OnCombatStart(delay)
 	self:SetStage(1)
 	isGrounded = false
-	enrageTimer:Start(-delay)
+	if self:IsDifficulty("heroic10", "heroic25") then
+		enrageTimer:Start(420-delay)
+	else
+		enrageTimer:Start(-delay)
+	end
 	combattime = GetTime()
 	if self:IsDifficulty("normal10", "heroic10") then
 		warnTurretsReadySoon:Schedule(51.8-delay)
