@@ -144,6 +144,7 @@ function mod:CHAT_MSG_MONSTER_YELL(msg)
 		end
 	elseif msg == L.Yell_Trigger_arm_left or msg:find(L.Yell_Trigger_arm_left) then		-- left arm
 		timerRespawnLeftArm:Start()
+		timerNextSmash:Cancel()
 		if not self.vb.disarmActive then
 			self.vb.disarmActive = true
 			if self:IsDifficulty("normal10", "heroic10") then
