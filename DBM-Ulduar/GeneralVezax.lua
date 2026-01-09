@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("GeneralVezax", "DBM-Ulduar")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20250929220131")
+mod:SetRevision("20260109150051")
 mod:SetCreatureID(33271)
 mod:SetEncounterID(755)
 mod:SetUsedIcons(7, 8)
@@ -27,7 +27,6 @@ local yellShadowCrash			= mod:NewYell(62660)
 local specWarnSurgeDarkness		= mod:NewSpecialWarningDefensive(62662, nil, nil, 2, 1, 2)
 local specWarnLifeLeechYou		= mod:NewSpecialWarningMoveAway(63276, nil, nil, nil, 3, 2)
 local yellLifeLeech				= mod:NewYell(63276)
-local specWarnLifeLeechNear 	= mod:NewSpecialWarningClose(63276, nil, nil, 2, 1, 2)
 local specWarnSearingFlames		= mod:NewSpecialWarningInterruptCount(62661, "HasInterrupt", nil, nil, 1, 2)
 local specWarnAnimus			= mod:NewSpecialWarningSwitch(63145, nil, nil, nil, 1, 2)
 
@@ -153,15 +152,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 			specWarnLifeLeechYou:Play("runout")
 			yellLifeLeech:Yell()
 		else
-			local uId = DBM:GetRaidUnitId(args.destName)
-			if uId then
-				local inRange = CheckInteractDistance(uId, 2)
-				if inRange then
-					specWarnLifeLeechNear:Show(args.destName)
-				else
-					warnLeechLife:Show(args.destName)
-				end
-			end
+			warnLeechLife:Show(args.destName)
 		end
 	elseif args.spellId == 63364 then
 		specWarnAnimus:Show()
