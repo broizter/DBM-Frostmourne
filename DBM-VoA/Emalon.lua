@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Emalon", "DBM-VoA")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20250929220131")
+mod:SetRevision("20260109145705")
 mod:SetCreatureID(33993)
 mod:SetEncounterID(774)
 mod:SetUsedIcons(8)
@@ -26,7 +26,7 @@ local timerMobOvercharge	= mod:NewTimer(20, "timerMobOvercharge", 64217, nil, ni
 
 local timerEmalonEnrage		= mod:NewBerserkTimer(360, nil, "EmalonEnrage")
 
-mod:AddRangeFrameOption(10, 64213)
+mod:AddRangeFrameOption(12, 64213)
 mod:AddSetIconOption("SetIconOnOvercharge", 64218, true, 5, {8})
 
 local function ResetRange(self)
@@ -40,7 +40,7 @@ function mod:OnCombatStart(delay)
 	timerNovaCD:Start(40-delay)
 	timerEmalonEnrage:Start(-delay)
 	if self.Options.RangeFrame then
-		DBM.RangeCheck:Show(10)
+		DBM.RangeCheck:Show(12)
 	end
 end
 
