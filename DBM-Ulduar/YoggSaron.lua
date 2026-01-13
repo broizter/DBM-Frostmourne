@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("YoggSaron", "DBM-Ulduar")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20250929220131")
+mod:SetRevision("20260113133425")
 mod:SetCreatureID(33288)
 mod:SetEncounterID(756)
 mod:RegisterCombat("yell", L.YellPull)
@@ -123,7 +123,7 @@ function mod:SPELL_CAST_START(args)
 		specWarnMadnessOutNow:Schedule(55)
 	elseif spellId == 64189 then		--Deafening Roar
 		timerNextDeafeningRoar:Start()
-		warnDeafeningRoarSoon:Schedule(55)
+		warnDeafeningRoarSoon:Schedule(45)
 		timerCastDeafeningRoar:Start()
 		specWarnDeafeningRoar:Show()
 		specWarnDeafeningRoar:Play("silencesoon")
@@ -295,9 +295,7 @@ function mod:OnSync(msg)
 		timerEmpower:Start(52.5)
 		warnP3:Show()
 		warnEmpowerSoon:Schedule(47.5)
-		if self:IsDifficulty("normal25", "heroic25") then
-			timerNextDeafeningRoar:Start(50)
-			warnDeafeningRoarSoon:Schedule(25)
-		end
+		timerNextDeafeningRoar:Start()
+		warnDeafeningRoarSoon:Schedule(45)
 	end
 end
