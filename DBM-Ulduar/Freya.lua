@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Freya", "DBM-Ulduar")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20250929220131")
+mod:SetRevision("20260118154923")
 
 mod:SetCreatureID(32906)
 mod:SetEncounterID(753)
@@ -14,7 +14,7 @@ mod:RegisterEvents(
 )
 mod:RegisterEventsInCombat(
 	"SPELL_CAST_START 62437 62859",
-	"SPELL_CAST_SUCCESS 62678 62873 62619 63571 62589 64587 64650 63601 62451 62865",
+	"SPELL_CAST_SUCCESS 62678 62873 62619 63571 62589 63601 62451 62865",
 	"SPELL_AURA_APPLIED 62283 62438 62439 62861 62862 62930 62451 62865",
 	"SPELL_AURA_REMOVED 62519 62861 62438 63571 62589",
 	"UNIT_DIED",
@@ -55,11 +55,6 @@ mod:AddSetIconOption("SetIconOnFury", 63571, false, false, {7, 8})
 mod:AddTimerLine(DBM_CORE_L.SCENARIO_STAGE:format(2))
 local warnPhase2				= mod:NewPhaseAnnounce(2, 3, nil, nil, nil, nil, nil, 2)
 
-local specWarnNatureBombSummon	= mod:NewSpecialWarningMove(64604) -- Nature Bomb (Summon) - Move away from area of effect when Nature Bomb is summoned
-
-local timerNextNatureBombSummon	= mod:NewNextTimer(2, 64604, nil, nil, nil, 2) -- Nature Bomb (Summon), estimated from first explosion. REVIEW! Has variance (2s?)
-local timerNatureBombExplosion	= mod:NewCastTimer(10, 64587, 34539, nil, nil, 2) -- On explosion, not on summon. Applied a Explosion text. REVIEW! 2s variance from first explosion from the set to the first explosion from the next set (S3 HM log 2022/07/22) - 11, 10.3, 11.9, 11.2, 10.4, 11.3, 10.5
-
 -- Hard Mode
 mod:AddTimerLine(DBM_COMMON_L.HEROIC_ICON..DBM_CORE_L.HARD_MODE)
 local warnUnstableBeamSoon		= mod:NewSoonAnnounce(62865, 3) -- Hard mode Sun Beam Elder Brightleaf Alive
@@ -74,8 +69,6 @@ local timerIronRootsCD			= mod:NewCDTimer(30, 62438, nil, nil, nil, 3) -- ~7s va
 local timerUnstableBeamCD		= mod:NewCDTimer(30, 62865, nil, nil, nil, 2, nil, nil, true) -- Hard mode Sun Beam. ~5s variance [15-20]. Added "keep" arg (2022/07/05 log review || 25 man HM log 2022/07/17 || 25H Lordaeron 2022/10/30) - 18.7, 16.6 || 15.8, 20.0, 17.3, 18.9, 16.1, 16.6, 15.6 ; 20.4, 17.4, 16.5, 18.3, 16.9, 16.1, 16.3 || 17.6
 
 mod:AddSetIconOption("SetIconOnRoots", 62438, false, false, {6, 5, 4})
-
-mod:GroupSpells(64587, 64604) -- Nature Bomb, internal Nature Bomb summon ID
 
 local adds = {}
 mod.vb.altIcon = true
@@ -138,19 +131,6 @@ function mod:SPELL_CAST_SUCCESS(args)
 			warnNatureFury:Show(args.destName)
 		end
 		timerNatureFury:Start(args.destName)
-	elseif args:IsSpellID(64587, 64650) then -- Nature Bomb
-		if self:AntiSpam(3, 1) and self:IsInCombat() then
-			specWarnNatureBombSummon:Cancel()
- 			if self:IsHeroic() then
-				timerNextNatureBombSummon:Start(2.3)
-				timerNatureBombExplosion:Start(12.3)
-				specWarnNatureBombSummon:Schedule(2.3)
-			else
-				timerNextNatureBombSummon:Start(7)
-				timerNatureBombExplosion:Start(17.5)
-				specWarnNatureBombSummon:Schedule(7)
-			end
-		end
 	elseif args:IsSpellID(62451, 62865) and self:AntiSpam(5, 2) then -- Unstable Energy (Sun Beam)
 		timerUnstableBeamCD:Start()
 		warnUnstableBeamSoon:Schedule(27)
@@ -178,9 +158,6 @@ function mod:SPELL_AURA_REMOVED(args)
 		warnPhase2:Show()
 		warnPhase2:Play("ptwo")
 		self:SetStage(2)
-		timerNextNatureBombSummon:Start(15.7) --  Confirmed bug (2022/08/01) that Freya uses this ability before phase 2 begins! No log to identify a trigger for it. REVIEW! variance [?] (VODs) - ~8; ~6
-		specWarnNatureBombSummon:Schedule(15.7) -- delayed to the maximum timer possible
-		timerNatureBombExplosion:Start(25.5) -- REVIEW! variance [?] (S3 HM log 2022/07/22) - 13.4
 	elseif args:IsSpellID(62861, 62438) then
 		if self.Options.SetIconOnRoots then
 			self:RemoveIcon(args.destName)
