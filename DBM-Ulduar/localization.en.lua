@@ -90,6 +90,10 @@ L:SetGeneralLocalization({
 	name = "XT-002 Deconstructor"
 })
 
+L:SetMiscLocalization({
+	YellPull		= "New toys? For me? I promise I won't break them this time!"
+})
+
 --------------------
 --  Iron Council  --
 --------------------

@@ -1,12 +1,12 @@
 local mod	= DBM:NewMod("XT002", "DBM-Ulduar")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20250929220131")
+mod:SetRevision("20260118211038")
 mod:SetCreatureID(33293)
 mod:SetEncounterID(747)
 mod:SetUsedIcons(1, 2)
 
-mod:RegisterCombat("combat")
+mod:RegisterCombat("yell", L.YellPull)
 
 mod:RegisterEventsInCombat(
 	"SPELL_CAST_START 62776",
