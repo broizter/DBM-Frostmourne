@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("GeneralVezax", "DBM-Ulduar")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20260109150051")
+mod:SetRevision("20260119213840")
 mod:SetCreatureID(33271)
 mod:SetEncounterID(755)
 mod:SetUsedIcons(7, 8)
@@ -47,36 +47,6 @@ mod:AddBoolOption("CrashArrow")
 
 mod.vb.interruptCount = 0
 mod.vb.vaporsCount = 0
-
-function mod:ShadowCrashTarget(targetname, uId)
-	if not targetname then return end
-	if self.Options.SetIconOnShadowCrash then
-		self:SetIcon(targetname, 8, 5)
-	end
-	if targetname == UnitName("player") then
-		specWarnShadowCrash:Show()
-		specWarnShadowCrash:Play("runaway")
-		yellShadowCrash:Yell()
-	elseif targetname then
-		if uId then
-			local inRange = CheckInteractDistance(uId, 2)
-			local x, y = GetPlayerMapPosition(uId)
-			if x == 0 and y == 0 then
-				SetMapToCurrentZone()
-				x, y = GetPlayerMapPosition(uId)
-			end
-			if inRange then
-				specWarnShadowCrashNear:Show(targetname)
-				specWarnShadowCrashNear:Play("runaway")
-				if self.Options.CrashArrow then
-					DBM.Arrow:ShowRunAway(x, y, 15, 5)
-				end
-			else
-				warnShadowCrash:Show(targetname)
-			end
-		end
-	end
-end
 
 function mod:OnCombatStart(delay)
 	self.vb.interruptCount = 0
@@ -139,8 +109,29 @@ end
 
 function mod:SPELL_CAST_SUCCESS(args)
 	if args.spellId == 62660 then		-- Shadow Crash
-		self:BossTargetScanner(33271, "ShadowCrashTarget", 0.05, 20)
 		timerShadowCrashCD:Start()
+		if self.Options.SetIconOnShadowCrash then
+			self:SetIcon(args.destName, 8, 5)
+		end
+		if args:IsPlayer() then
+			specWarnShadowCrash:Show()
+			specWarnShadowCrash:Play("runaway")
+			yellShadowCrash:Yell()
+		elseif self:CheckNearby(11, args.destName) then
+			specWarnShadowCrashNear:Show(args.destName)
+			specWarnShadowCrashNear:Play("runaway")
+		else
+			warnShadowCrash:Show(args.destName)
+		end
+		if self.Options.CrashArrow then
+			local uId = DBM:GetRaidUnitId(args.destName)
+			local x, y = GetPlayerMapPosition(uId)
+			if x == 0 and y == 0 then
+				SetMapToCurrentZone()
+				x, y = GetPlayerMapPosition(uId)
+			end
+			DBM.Arrow:ShowRunAway(x, y, 15, 5)
+		end
 	elseif args.spellId == 63276 then	-- Mark of the Faceless
 		if self.Options.SetIconOnLifeLeach then
 			self:SetIcon(args.destName, 7, 10)
