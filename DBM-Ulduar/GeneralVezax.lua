@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("GeneralVezax", "DBM-Ulduar")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20260119213840")
+mod:SetRevision("20260119230222")
 mod:SetCreatureID(33271)
 mod:SetEncounterID(755)
 mod:SetUsedIcons(7, 8)
@@ -130,7 +130,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 				SetMapToCurrentZone()
 				x, y = GetPlayerMapPosition(uId)
 			end
-			DBM.Arrow:ShowRunAway(x, y, 15, 5)
+			DBM.Arrow:ShowRunAway(x, y, 13, 5)
 		end
 	elseif args.spellId == 63276 then	-- Mark of the Faceless
 		if self.Options.SetIconOnLifeLeach then
