@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("IronCouncil", "DBM-Ulduar")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20250929220131")
+mod:SetRevision("20260120114518")
 mod:SetCreatureID(32867, 32927, 32857)
 mod:SetEncounterID(748)
 mod:SetUsedIcons(1, 2, 3, 4, 5, 6, 7, 8)
@@ -188,16 +188,24 @@ function mod:SPELL_AURA_APPLIED(args)
 				DBM.RangeCheck:Show(20)
 			end
 		end
-		if self:IsDifficulty("normal10", "heroic10") then
+		if self:IsDifficulty("normal10") then
 			timerOverwhelmingPower:Start(60, args.destName)
-		else
+		elseif self:IsDifficulty("heroic10") then
+			timerOverwhelmingPower:Start(45, args.destName)
+		elseif self:IsDifficulty("normal25") then
 			timerOverwhelmingPower:Start(35, args.destName)
+		else
+			timerOverwhelmingPower:Start(25, args.destName)
 		end
 		if self.Options.SetIconOnOverwhelmingPower then
-			if self:IsDifficulty("normal10", "heroic10") then
+			if self:IsDifficulty("normal10") then
 				self:SetIcon(args.destName, 8, 60) -- skull for 60 seconds (until meltdown)
-			else
+			elseif self:IsDifficulty("heroic10") then
+				self:SetIcon(args.destName, 8, 45) -- skull for 45 seconds (until meltdown)
+			elseif self:IsDifficulty("normal25") then
 				self:SetIcon(args.destName, 8, 35) -- skull for 35 seconds (until meltdown)
+			else
+				self:SetIcon(args.destName, 8, 25) -- skull for 25 seconds (until meltdown)
 			end
 		end
 	elseif args:IsSpellID(63486, 61887) then	-- Lightning Tendrils
