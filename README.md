@@ -1,12 +1,13 @@
-# Not maintained 
-Since I am no longer actively playing on the Frostmourne server, this DBM version will not see further work from me.  
-Pull requests with sensible fixes will still be merged, although I highly recommend forking this repository instead.
-
-Timers for tier 7, 8 and 9 should be mostly correct unless server side changes happen. ICC/Ruby Sanctum still needs significant work though.
-
 # DBM-Frostmourne (3.3.5a)
 
-Deadly Boss Mods that aims to implement accurate timers for the Frostmourne servers.
+Deadly Boss Mods that aims to implement accurate timers for Stormforge's Frostmourne server.
+
+## Maintenance Status
+
+Since I no longer play on the Frostmourne server, this project is not actively developed.  
+That said, **reported bugs may still be investigated and fixed**, depending on scope and impact.
+
+**Pull requests are very welcome**. Contributions are the best way to keep this project accurate and up to date.
 
 ## Credit
 Core addon backport from retail by Barsoomx: (https://github.com/Barsoomx/DBM-wowcircle)  
