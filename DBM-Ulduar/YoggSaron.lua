@@ -1,11 +1,11 @@
 local mod	= DBM:NewMod("YoggSaron", "DBM-Ulduar")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision("20260113133425")
+mod:SetRevision("20260123121040")
 mod:SetCreatureID(33288)
 mod:SetEncounterID(756)
 mod:RegisterCombat("yell", L.YellPull)
-mod:SetUsedIcons(8, 7, 6, 5, 4, 2, 1)
+mod:SetUsedIcons(1, 2, 3, 4, 5, 6, 7, 8)
 
 mod:RegisterEventsInCombat(
 	"SPELL_CAST_START 64059 64189 63138 63830 63881",
@@ -48,7 +48,7 @@ local timerBrainLinkCD				= mod:NewCDTimer(32, 63802, nil, nil, nil, 3)
 local timerBrainPortal				= mod:NewTimer(22, "NextPortal", 57687, nil, nil, 5)
 local timerLunaricGaze				= mod:NewCastTimer(4, 64163, nil, nil, nil, 2)
 local timerNextLunaricGaze			= mod:NewCDTimer(8, 64163, nil, nil, nil, 2)
-local timerEmpower					= mod:NewCDTimer(45, 64486, nil, nil, nil, 3)
+local timerEmpower					= mod:NewCDTimer(48, 64486, nil, nil, nil, 3)
 local timerMadness 					= mod:NewCastTimer(60, 64059, nil, nil, nil, 5, nil, DBM_CORE_L.DEADLY_ICON, nil, 3)
 local timerCastDeafeningRoar		= mod:NewCastTimer(2.3, 64189, nil, nil, nil, 2)
 local timerNextDeafeningRoar		= mod:NewNextTimer(50, 64189, nil, nil, nil, 2)
@@ -59,8 +59,10 @@ mod:AddBoolOption("MaladyArrow")
 mod:AddSetIconOption("SetIconOnFearTarget", 63802, true, false, {6})
 mod:AddSetIconOption("SetIconOnFervorTarget", 63802, false, false, {7})
 mod:AddSetIconOption("SetIconOnBrainLinkTarget", 63802, true, false, {1, 2})
-mod:AddSetIconOption("SetIconOnBeacon", 64465, true, true, {4, 5, 6, 7, 8})
+mod:AddSetIconOption("SetIconOnBeacon", 64465, true, true, {1, 2, 3, 4, 5, 6, 7, 8})
 mod:AddInfoFrameOption(63050)
+
+mod:GroupSpells(64486, 64465) -- Empowering Shadows, Shadow Beacon
 
 local targetWarningsShown = {}
 local brainLinkTargets = {}
@@ -140,7 +142,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 		warnCrusherTentacleSpawned:Show()
 	elseif spellId == 64465 then -- Shadow Beacon
 		timerEmpower:Start()
-		warnEmpowerSoon:Schedule(40)
+		warnEmpowerSoon:Schedule(43)
 	elseif args:IsSpellID(64167, 64163) and self:AntiSpam(3, 3) then	-- Lunatic Gaze
 		timerLunaricGaze:Start()
 	end
@@ -233,14 +235,8 @@ function mod:SPELL_AURA_APPLIED(args)
 			self:ScanForMobs(args.destGUID, 2, self.vb.beaconIcon, 1, nil, 6, "SetIconOnBeacon", true, nil, nil, true)
 		end
 		self.vb.beaconIcon = self.vb.beaconIcon - 1
-		if self:IsHeroic() then
-			if self.vb.beaconIcon == 3 then
-				self.vb.beaconIcon = 8
-			end
-		else
-			if self.vb.beaconIcon == 5 then
-				self.vb.beaconIcon = 8
-			end
+		if self.vb.beaconIcon == 0 then
+			self.vb.beaconIcon = 8
 		end
 	end
 end
@@ -292,9 +288,9 @@ function mod:OnSync(msg)
 		timerMaladyCD:Stop()
 		timerBrainLinkCD:Stop()
 		timerMadness:Stop()
-		timerEmpower:Start(52.5)
+		warnEmpowerSoon:Schedule(42)
+		timerEmpower:Start(47)
 		warnP3:Show()
-		warnEmpowerSoon:Schedule(47.5)
 		timerNextDeafeningRoar:Start()
 		warnDeafeningRoarSoon:Schedule(45)
 	end
